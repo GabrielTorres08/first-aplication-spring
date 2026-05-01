@@ -1,15 +1,24 @@
 package com.example.first_aplication_spring.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.first_aplication_spring.models.UserModel;
+import com.example.first_aplication_spring.services.BodyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
 public class BodyController {
 
+    @Autowired
+    private BodyService bodyService;
+
     @GetMapping("/")
     public String hello() {
-        return "Hello World";
+        return bodyService.home("Gabriel");
+    }
+
+    @PostMapping("/contatos")
+    public String usuario(@RequestBody UserModel userModel) {
+        return "Olá " + userModel.getNome() + ", você possui " + userModel.getIdade() + " anos";
     }
 }
